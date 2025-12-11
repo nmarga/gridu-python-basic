@@ -10,7 +10,16 @@ from typing import List
 
 
 def calculate_power_with_difference(ints: List[int]) -> List[int]:
+    """
+    Calculates the power of each integer and subtracts
+    the difference between original previous value and it's power.
+    For the first value nothing is subtracted.
     
+    :param ints: The list of integers
+    :type ints: List[int]
+    :return:
+    :rtype: List[int]
+    """
     # Compute the powers and differences
     powers = [x**2 for x in ints]
     differences = [0] + [x**2 - x for x in ints[:-1]]

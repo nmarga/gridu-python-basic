@@ -13,7 +13,14 @@ Examples:
 
 
 def remove_duplicated_words(line: str) -> str:
-
+    """
+    Removes duplicate words from a line of space sepparated words
+    
+    :param line: The line string
+    :type line: str
+    :return:
+    :rtype: str
+    """
     # Create a dictionary to store the word
     unique_word_dict = {}
 

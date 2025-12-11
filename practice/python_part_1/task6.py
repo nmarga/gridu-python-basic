@@ -20,6 +20,15 @@ from typing import Tuple
 
 
 def get_min_max(filename: str) -> Tuple[int, int]:
+    """
+    Reads the file line by line and calculates 
+    the minimum and maximum value
+    
+    :param filename: The name of the file
+    :type filename: str
+    :return:
+    :rtype: Tuple[int, int]
+    """
 
     # Create the list to store the integers
     ints = []

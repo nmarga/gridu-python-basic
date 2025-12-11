@@ -16,6 +16,17 @@ from typing import Iterable
 
 
 def build_from_unique_words(*lines: Iterable[str], word_number: int) -> str:
+    """
+    Enumerates unique words and rebuilds a string from all words of a given number
+    
+    :param lines: Lines with words
+    :type lines: Iterable[str]
+    :param word_number: The index of the word to extract from the lines
+    :type word_number: int
+    :return:
+    :rtype: str
+    """
+
     if word_number < 0:
         raise ValueError("word_number cannot be smaller than 0")
     

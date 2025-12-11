@@ -13,7 +13,16 @@ from typing import Dict
 
 
 def set_to_dict(dict_to_update: Dict[str, int], **items_to_set) -> Dict:
-
+    """
+    Updates a dictionary with defined values if the new value
+    is more than in the dictionary.
+    
+    :param dict_to_update: The dictionary to update
+    :type dict_to_update: Dict[str, int]
+    :param items_to_set: The items to set
+    :return:
+    :rtype: Dict
+    """
     # Iterating through each key value in the items_to_set
     for item in items_to_set:
 
