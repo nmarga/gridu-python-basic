@@ -22,7 +22,7 @@ def set_to_dict(dict_to_update: Dict[str, int], **items_to_set) -> Dict:
         new_value = items_to_set.get(item)
 
         # Check if the dict_value actually exist in the dictonary, if not, add it
-        if not dict_value:
+        if dict_value == None:
             dict_to_update[item] = new_value
             # Skip this iteration
             continue
