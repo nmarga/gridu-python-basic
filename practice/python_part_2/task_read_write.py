@@ -18,7 +18,7 @@ import os
 def read_files(dir_path: str) -> None:
     """
     Reads all the file from a folder path.
-    Creates an output file with the contents merged
+    Creates an output file with the contents merged.
     """
 
     # Save the contents of each file in a list
@@ -36,9 +36,9 @@ def read_files(dir_path: str) -> None:
     for file_path in file_paths:
 
         # Open the file and append its content to the list
-        with open(dir_path + '/' + file_path, 'r') as f:
+        with open(dir_path + '/' + file_path, 'r', encoding="UTF-8") as f:
             file_contents.append(f.read())
-    
+
     # Join the list in a string output and write it to result.txt file
-    with open('./result.txt', 'w') as f:
+    with open('./result.txt', 'w', encoding="UTF-8") as f:
         f.write(', '.join(file_contents))

@@ -26,9 +26,9 @@ def generate_words(n=20):
 def write_random_words(word_count=10) -> None:
     """
     Creates two files one with UTF-8 and the other with CP1252 encoding.
-    It writes a random sequence of words, the order is reversed in the second file
+    It writes a random sequence of words, the order is reversed in the second file.
     """
-    
+
     generated_word_list = generate_words(word_count)
 
     with open('file1.txt', 'w', encoding='UTF-8') as f:

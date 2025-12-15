@@ -20,12 +20,7 @@ Examples:
 def read_numbers(n: int) -> str:
     """
     Awaits user input to enter a string of numbers,
-    then computes the average of those numbers
-
-    :param n: Limit of processed numbers
-    :type n: int
-    :return:
-    :rtype: str
+    then computes the average of those numbers.
     """
 
     # Await user input and clean trailing white spaces

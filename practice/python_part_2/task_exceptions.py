@@ -14,34 +14,29 @@ In all cases it should print "Division finished"
     1
     Division finished
 """
-import typing
+from typing import Callable, Union
 
 class DivisionByOneException(Exception):
     """Custom exception for division by one"""
-    pass
 
-def log_division_result(func: function) -> function:
+def log_division_result(func: Callable) -> Callable:
     """Decorator for logging the result after the division function call"""
 
     def wrapper(*args, **kwargs):
         result = func(*args, **kwargs)
         print("Division finished")
         return result
-    
+
     return wrapper
 
 @log_division_result
-def division(x: int, y: int) -> typing.Union[None, int]:
+def division(x: int, y: int) -> Union[None, int]:
     """
     Performs division operation.
-    Can not divide by 1 or 0
-    
-    :param x: Dividend
-    :type x: int
-    :param y: Divisor
-    :type y: int
-    :return: Quotient
-    :rtype: int | None
+    Can not divide by 1 or 0.
+
+    Raises:
+        DivisionByOneException: This exception is raised when y is equal to 1.
     """
 
     if y == 1:

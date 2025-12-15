@@ -25,9 +25,71 @@ Methods:
     Note that this method doesn't need object itself
 PEP8 comply strictly.
 """
-import datetime
+import datetime as dt
+from typing import Union
 
-class Teacher:
+class Homework:
+    """
+    The homework class.
+
+    Attributes:
+        text (str): The task name.
+        deadline (datetime.timedelta): The deadline period.
+        created (datetime.datetime): The creation timestamp.
+    """
+    text: str
+    deadline: dt.timedelta
+    created: dt.datetime
+
+    def __init__(self, tasks: str, num_days: int):
+        self.text = tasks
+        self.deadline = dt.timedelta(days=num_days)
+        self.created = dt.datetime.now()
+
+    def is_active(self) -> bool:
+        """Checks if the homework does not have an expired deadline."""
+
+        if self.created + self.deadline < dt.datetime.now():
+            return False
+
+        return True
+
+class Student():
+    """
+    The Student class.
+
+    Attributes:
+        last_name (str): The last name.
+        first_name (str): The first name.
+    """
+    last_name: str
+    first_name: str
+
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    def do_homework(self, homework: Homework) -> Union[Homework, None]:
+        """
+        Request Homework object and returns it, if Homework is expired, 
+        prints 'You are late' and returns None.
+        """
+
+        if homework.is_active():
+            return homework
+
+        # If the homework is not active then return None
+        print('You are late')
+        return None
+
+class Teacher():
+    """
+    The Teacher class.
+
+    Attributes:
+        last_name (str): The last name.
+        first_name (str): The first name.
+    """
     last_name: str
     first_name: str
 
@@ -36,46 +98,9 @@ class Teacher:
         self.last_name = last_name
 
     def create_homework(self, task_text: str, num_days: int) -> Homework:
-        """Request task text and number of days to complete, returns Homework object"""
+        """Request task text and number of days to complete, returns Homework object."""
 
         return Homework(task_text, num_days)
-
-class Student:
-    last_name: str
-    first_name: str
-
-    def __init__(self, first_name, last_name):
-        self.first_name = first_name
-        self.last_name = last_name
-
-    def do_homework(self, homework: Homework) -> Homework:
-        """Request Homework object and returns it, if Homework is expired, prints 'You are late' and returns None"""
-
-        if homework.is_active():
-            return homework
-        
-        # If the homework is not active then return None
-        print('You are late')
-        return None
-
-class Homework:
-    text: str
-    deadline: datetime.timedelta
-    created: datetime.datetime
-
-    def __init__(self, tasks: str, num_days: int):
-        self.text = tasks
-        self.deadline = datetime.timedelta(days=num_days)
-        self.created = datetime.datetime.now()
-
-    def is_active(self) -> bool:
-        """Checks if the homework does not have an expired deadline"""
-
-        if self.created + self.deadline < datetime.datetime.now():
-            return False
-        
-        return True
-
 
 
 if __name__ == '__main__':
