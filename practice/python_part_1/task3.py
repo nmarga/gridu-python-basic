@@ -41,21 +41,11 @@ def build_from_unique_words(*lines: Iterable[str], word_number: int) -> str:
 
         # Set the word index
         word_index = 0
-        word_list = line.split(' ')
-
-        # Clear the empty words
-        while '' in word_list:
-            word_list.remove('')
+        # Ensure that the list has unique words only
+        word_list = list(dict.fromkeys(line.split()))
 
         for word in word_list:
-
-            # Check if the word already exist in the dictionary
-            if unique_word_dict.get(word.strip()) != None:
-                # Skip the word if found
-                continue
-
-            # Strip the word of other white spaces left
-            unique_word_dict[word.strip()] = word_index
+            unique_word_dict[word] = word_index
             word_index += 1
         
         word_list_lines += [word for word in unique_word_dict if unique_word_dict.get(word) == word_number]
