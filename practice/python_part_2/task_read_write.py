@@ -30,7 +30,7 @@ def read_files(dir_path: str) -> None:
     file_paths.sort()
 
     # Sort by length of the file name since .sort() is stable
-    file_paths.sort(key = lambda x : len(x))
+    file_paths.sort(key = len)
 
     # Iterate through each file name found in the dir_path sorted by characters
     for file_path in file_paths:
