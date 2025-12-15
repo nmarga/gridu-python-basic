@@ -21,13 +21,13 @@ from typing import Tuple
 
 def get_min_max(filename: str) -> Tuple[int, int]:
     """
-    Reads the file line by line and calculates 
-    the minimum and maximum value
-    
-    :param filename: The name of the file
-    :type filename: str
-    :return:
-    :rtype: Tuple[int, int]
+    Reads the file line by line and calculates the minimum and maximum value.
+
+    Args:
+        filename (str): The relative path filename.
+
+    Returns:
+        Tuple[int, int]: A tuple with minimum and maximum value.
     """
 
     # Create the list to store the integers
@@ -38,6 +38,6 @@ def get_min_max(filename: str) -> Tuple[int, int]:
         for line in opened_file:
             # Append the parsed to integer line
             ints.append(int(line))
-    
+
     # Return the min and max tuple
     return (min(ints), max(ints))

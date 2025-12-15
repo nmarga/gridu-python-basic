@@ -14,14 +14,14 @@ from typing import Dict
 
 def set_to_dict(dict_to_update: Dict[str, int], **items_to_set) -> Dict:
     """
-    Updates a dictionary with defined values if the new value
-    is more than in the dictionary.
-    
-    :param dict_to_update: The dictionary to update
-    :type dict_to_update: Dict[str, int]
-    :param items_to_set: The items to set
-    :return:
-    :rtype: Dict
+    Updates a dictionary with defined values if the new value is more than in the dictionary.
+
+    Args:
+        dict_to_update (Dict[str, str]): Dictionary to update.
+        **items_to_set: Items to set.
+
+    Returns:
+        Dict: Updated dictionary.
     """
     # Iterating through each key value in the items_to_set
     for item in items_to_set:
@@ -31,7 +31,7 @@ def set_to_dict(dict_to_update: Dict[str, int], **items_to_set) -> Dict:
         new_value = items_to_set.get(item)
 
         # Check if the dict_value actually exist in the dictonary, if not, add it
-        if dict_value == None:
+        if dict_value is None:
             dict_to_update[item] = new_value
             # Skip this iteration
             continue
@@ -39,5 +39,5 @@ def set_to_dict(dict_to_update: Dict[str, int], **items_to_set) -> Dict:
         # Compare original dictionary value with the new value from the items_to_set parameter
         if dict_value < new_value:
             dict_to_update[item] = new_value
-        
+
     return dict_to_update

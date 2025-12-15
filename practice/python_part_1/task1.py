@@ -16,15 +16,14 @@ from typing import List, Any
 
 def delete_from_list(list_to_clean: List, item_to_delete: Any) -> List:
     """
-    Deletes an element from any type of list
-    
-    :param list_to_clean: The list to clean
-    :type list_to_clean: List
-    :param item_to_delete: The item to delete from the list
-    :type item_to_delete: Any
-    :return:
-    :rtype: List
+    Deletes an element from any type of list.
+
+    Args:
+        list_to_clean (List): List of elements.
+        item_to_delete (Any): The item to be removed from the list.
+
+    Returns:
+        List: A list with the removed item.
     """
     # Extract all elements from the list that are not equal to item_to_delete
-    # It uses List Comprehensions
     return [item for item in list_to_clean if item != item_to_delete]

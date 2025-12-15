@@ -17,19 +17,22 @@ from typing import Iterable
 
 def build_from_unique_words(*lines: Iterable[str], word_number: int) -> str:
     """
-    Enumerates unique words and rebuilds a string from all words of a given number
-    
-    :param lines: Lines with words
-    :type lines: Iterable[str]
-    :param word_number: The index of the word to extract from the lines
-    :type word_number: int
-    :return:
-    :rtype: str
+    Enumerates unique words and rebuilds a string from all words of a given number.
+
+    Args:
+        *lines (Iterable[str]): Lines with words.
+        word_number (int): The index of the word to extract from the lines.
+
+    Returns:
+        str: String result from all the words of given number.
+
+    Raises:
+        ValueError: Raised when the value of word_number is less than 0.
     """
 
     if word_number < 0:
         raise ValueError("word_number cannot be smaller than 0")
-    
+
     # Create a list to store all the words from each line
     word_list_lines = []
 
@@ -47,9 +50,9 @@ def build_from_unique_words(*lines: Iterable[str], word_number: int) -> str:
         for word in word_list:
             unique_word_dict[word] = word_index
             word_index += 1
-        
-        word_list_lines += [word for word in unique_word_dict if unique_word_dict.get(word) == word_number]
+
+        word_list_lines += [word for word in unique_word_dict
+                            if unique_word_dict.get(word) == word_number]
 
     # Merge the word list into a final string
     return ' '.join(word_list_lines)
-
