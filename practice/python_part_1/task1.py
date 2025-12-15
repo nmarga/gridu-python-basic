@@ -25,5 +25,14 @@ def delete_from_list(list_to_clean: List, item_to_delete: Any) -> List:
     Returns:
         List: A list with the removed item.
     """
-    # Extract all elements from the list that are not equal to item_to_delete
-    return [item for item in list_to_clean if item != item_to_delete]
+
+    # Extract all indexes from the list where the value is equal to item_to_delete
+    indexes_to_delete = [index for index, _ in enumerate(list_to_clean)
+                         if list_to_clean[index] == item_to_delete]
+
+    # The list must be sorted in reverse order
+    # pop() method changes the indexeses after the n-th popped element.
+    for index in sorted(indexes_to_delete, reverse=True):
+        list_to_clean.pop(index)
+
+    return list_to_clean
