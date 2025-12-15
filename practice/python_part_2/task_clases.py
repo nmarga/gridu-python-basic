@@ -97,7 +97,8 @@ class Teacher():
         self.first_name = first_name
         self.last_name = last_name
 
-    def create_homework(self, task_text: str, num_days: int) -> Homework:
+    @staticmethod
+    def create_homework(task_text: str, num_days: int) -> Homework:
         """Request task text and number of days to complete, returns Homework object."""
 
         return Homework(task_text, num_days)
