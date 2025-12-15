@@ -28,8 +28,7 @@ def calculate_power_with_difference(ints: List[int]) -> List[int]:
     # Create the empty result list
     powers_differences = []
 
-    # Append the differences for each item
-    for i in range(len(powers)):
-        powers_differences.append(powers[i] - differences[i])
+    # Aggregate the power and difference lists into a single tuple list then find power differences
+    powers_differences = [power - difference for power, difference in zip(powers, differences)]
 
     return powers_differences
