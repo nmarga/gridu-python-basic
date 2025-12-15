@@ -21,24 +21,9 @@ def remove_duplicated_words(line: str) -> str:
     :return:
     :rtype: str
     """
-    # Create a dictionary to store the word
-    unique_word_dict = {}
 
-    word_list = line.split(' ')
-
-    # Clear the empty words
-    while '' in word_list:
-        word_list.remove('')
-
-    for word in word_list:
-
-        # Check if the word already exist in the dictionary
-        if unique_word_dict.get(word.strip()) != None:
-            # Skip the word if found
-            continue
-
-        # Strip the word of other white spaces left
-        unique_word_dict[word.strip()] = True
+    # Split the line, convert to a dictionary then extract the keys from it into a list
+    word_list = list(dict.fromkeys(line.split()))
     
-    # Merge the words into a list then join this list sepparated by a space
-    return ' '.join([word for word in unique_word_dict])
+    # Join this list sepparated by a space
+    return ' '.join(word_list)
