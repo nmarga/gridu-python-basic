@@ -36,7 +36,7 @@ def read_numbers(n: int) -> str:
     for num_str in nums_str:
         try:
             nums.append(float(num_str))
-        except:
+        except ValueError:
             pass
 
     # Get the total count of valid numbers
