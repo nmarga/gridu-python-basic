@@ -23,7 +23,7 @@ def generate_words(n=20):
 
     return words
 
-def write_random_words(word_count=10) -> None:
+def write_random_words(word_count=10, dir_path='.') -> None:
     """
     Creates two files one with UTF-8 and the other with CP1252 encoding.
     It writes a random sequence of words, the order is reversed in the second file.
@@ -31,9 +31,9 @@ def write_random_words(word_count=10) -> None:
 
     generated_word_list = generate_words(word_count)
 
-    with open('file1.txt', 'w', encoding='UTF-8') as f:
+    with open(dir_path + '/file1.txt', 'w', encoding='UTF-8') as f:
         f.write('\n'.join(generated_word_list))
 
-    with open('file2.txt', 'w', encoding='CP1252') as f:
+    with open(dir_path + '/file2.txt', 'w', encoding='CP1252') as f:
         # Use slicing to reverse the list
         f.write(', '.join(generated_word_list[::-1]))
