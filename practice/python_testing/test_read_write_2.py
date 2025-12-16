@@ -34,7 +34,7 @@ def test_generate_words_character_type():
     for word in generate_words():
         assert re.fullmatch(r'[a-z]+', word)
 
-def test_write_random_words(custom_temp_dir, mocker):
+def test_write_random_words(custom_temp_dir):
     """Test the write_random_words function"""
     write_random_words(word_count=15, dir_path=str(custom_temp_dir))
 
@@ -46,20 +46,3 @@ def test_write_random_words(custom_temp_dir, mocker):
 
     assert len(file1.read_text().split('\n')) == 15
     assert len(file2.read_text().split(', ')) == 15
-# @pytest.mark.parametrize(['filename', 'value'], FILE_CASES)
-# def test_create_files_in_dir(filename: str, value: int, custom_temp_dir):
-#     """Test the creation of multiple files in a temp path"""
-
-#     f = custom_temp_dir / filename
-#     f.write_text(str(value))
-
-#     # Read the value from the created file
-#     assert f.read_text() == value
-
-# def test_check_file_count_in_dir(custom_temp_dir):
-#     """Test the count of the created files in the temp path"""
-
-#     print(custom_temp_dir)
-
-#     # Check that the amount of files matches the FILE_CASES
-#     assert len(list(custom_temp_dir.glob('*'))) == len(FILE_CASES)
