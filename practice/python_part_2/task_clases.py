@@ -41,7 +41,7 @@ class Homework:
     deadline: dt.timedelta
     created: dt.datetime
 
-    def __init__(self, tasks: str, num_days: int):
+    def __init__(self, tasks: str, num_days: int) -> None:
         self.text = tasks
         self.deadline = dt.timedelta(days=num_days)
         self.created = dt.datetime.now()
@@ -65,7 +65,7 @@ class Student():
     last_name: str
     first_name: str
 
-    def __init__(self, first_name, last_name):
+    def __init__(self, first_name: str, last_name: str) -> None:
         self.first_name = first_name
         self.last_name = last_name
 
@@ -93,7 +93,7 @@ class Teacher():
     last_name: str
     first_name: str
 
-    def __init__(self, first_name, last_name):
+    def __init__(self, first_name: str, last_name: str) -> None:
         self.first_name = first_name
         self.last_name = last_name
 
