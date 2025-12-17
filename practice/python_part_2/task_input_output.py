@@ -27,13 +27,16 @@ def read_numbers(n: int) -> str:
     processed_str = ''.join(input().split())
 
     # Split the input string into n words/numbers
-    nums_str = processed_str.split(',', n - 1)
+    nums_str = processed_str.split(',', n)
 
     # Store the numbers
     nums = []
 
     # Parse each number into a float
     for num_str in nums_str:
+        if len(nums) == n:
+            break
+
         try:
             nums.append(float(num_str))
         except ValueError:
