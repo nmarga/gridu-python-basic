@@ -63,11 +63,11 @@ def test_homework_instance():
     with pytest.raises(ValueError):
         Homework("Learn SQL homework", -20)
 
-def test_main_function(capsys):
+def test_main_function(capfd):
     """Test the main function execution"""
 
     task_classes_main()
 
-    captured = capsys.readouterr()
+    captured = capfd.readouterr()
 
     assert "You are late" in captured.out
