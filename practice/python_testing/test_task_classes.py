@@ -4,8 +4,6 @@ Check if all methods working correctly.
 Also check corner-cases, for example if homework number of days is negative.
 """
 import datetime as dt
-import io
-import sys
 import pytest
 from python_part_2.task_clases import Teacher, Student, Homework, main as task_classes_main
 
