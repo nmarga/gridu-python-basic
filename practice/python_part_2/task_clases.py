@@ -42,6 +42,9 @@ class Homework:
     created: dt.datetime
 
     def __init__(self, tasks: str, num_days: int) -> None:
+        if num_days < 0:
+            raise ValueError("Number of days cannot be negative.")
+
         self.text = tasks
         self.deadline = dt.timedelta(days=num_days)
         self.created = dt.datetime.now()
@@ -103,8 +106,8 @@ class Teacher():
 
         return Homework(task_text, num_days)
 
-
-if __name__ == '__main__':
+def main():
+    """Main function"""
     teacher = Teacher('Dmitry', 'Orlyakov')
     student = Student('Vladislav', 'Popov')
 
