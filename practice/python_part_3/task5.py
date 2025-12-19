@@ -26,6 +26,6 @@ def make_request(url: str) -> Tuple[int, str]:
     with urllib.request.urlopen(url, context=ssl_context) as response:
         data = response.read()
         try:
-            return (response.status, data.decode('UTF-8'))
+            return (response.status, str(data.decode('UTF-8')))
         except UnicodeDecodeError:
-            return (response.status, data)
+            return (response.status, str(data))
