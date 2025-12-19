@@ -15,9 +15,18 @@ import re
 def is_http_domain(domain: str) -> bool:
     """Function which checks if string is http/https domain name"""
 
-    # Match the domain labels to be between 1 and 63 characters
-    regex_pattern = r'https?://([1-9|a-z]){1,63}(\.([1-9|a-z]){1,63})+/?'
-    if re.fullmatch(regex_pattern, domain.lower()):
-        return True
+    regex_pattern = r'https?://[1-9|a-z]+(-[1-9|a-z]+)*(\.[1-9|a-z]+(-[1-9|a-z]+)*)+/?'
+    if not re.fullmatch(regex_pattern, domain.lower()):
+        return False
 
-    return False
+    if domain[-1] == '/':
+        domain = domain[:-1]
+    domain_labels = domain.split('//')[-1]
+
+    # Check domain labels length
+    for domain_label in domain_labels.split('.'):
+
+        if len(domain_label) > 63:
+            return False
+
+    return True
