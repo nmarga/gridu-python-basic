@@ -15,7 +15,7 @@ import re
 def is_http_domain(domain: str) -> bool:
     """Function which checks if string is http/https domain name."""
 
-    regex_pattern = r'https?://[1-9|a-z]+(-[1-9|a-z]+)*(\.[1-9|a-z]+(-[1-9|a-z]+)*)+/?'
+    regex_pattern = r'https?://[0-9|a-z]+(-[0-9|a-z]+)*(\.[0-9|a-z]+(-[0-9|a-z]+)*)+/?'
     if not re.fullmatch(regex_pattern, domain.lower()):
         return False
 
