@@ -13,10 +13,10 @@ If entered date is from future, return negative value for number of days
 from datetime import datetime
 
 class WrongFormatException(Exception):
-    """Wrong format exception error"""
+    """Wrong format exception error."""
 
 def calculate_days(from_date: str) -> int:
-    """Finds the number of days from custom date to now"""
+    """Finds the number of days from custom date to now."""
 
     try:
         delta_time = datetime.now() - datetime.fromisoformat(from_date)

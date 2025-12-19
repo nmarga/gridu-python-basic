@@ -13,10 +13,10 @@ import math
 from typing import Any
 
 class OperationNotFoundException(Exception):
-    """Custom exception for operation not found"""
+    """Custom exception for operation not found."""
 
 def math_calculate(function: str, *args) -> Any:
-    """Executes custom operation from math module"""
+    """Executes custom operation from math module."""
 
     expression = 'math.' + function + '(' + ', '.join([str(operand) for operand in args]) + ')'
     try:
