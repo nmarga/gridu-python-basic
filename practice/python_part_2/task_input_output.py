@@ -49,6 +49,6 @@ def read_numbers(n: int) -> str:
     if nums_count == 0:
         return "No numbers entered"
     else:
-        nums_avg = sum([num for num in nums]) / nums_count
+        nums_avg = sum(nums) / nums_count
 
         return f"Avg: {round(nums_avg, 2)}"
