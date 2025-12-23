@@ -24,6 +24,7 @@ def country_summary_stats(summary_cities: Dict) -> Tuple:
 
     temp_stats, wind_stats = zip(*summary_cities.values())
 
+    # Sort the dictionary by the coresponding item values and exctract the first key
     coldest_place = sorted(summary_cities.items(),
                            key=lambda item: item[1][0]['min_temp'])[0][0]
     warmest_place = sorted(summary_cities.items(),
@@ -81,7 +82,7 @@ def dict_to_summary_xml(date: str, summary_cities: Dict) -> ET.Element:
 
     return weather_elem
 
-def pretty_format_xml(element: ET.Element):
+def pretty_format_xml(element: ET.Element) -> str:
     """Returns a pretty-printed XML string for the Element."""
     ET.indent(element, space="  ")
     fomrated_string = ET.tostring(element, encoding='unicode')
