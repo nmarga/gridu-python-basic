@@ -35,7 +35,7 @@ import os
 from scraper.scraper import Scraper
 from dotenv import load_dotenv
 
-TOTAL_COUNT = 205
+TOTAL_COUNT = 10
 
 
 def main() -> None:
@@ -45,7 +45,6 @@ def main() -> None:
                       os.getenv("USER_AGENT", ""),
                       TOTAL_COUNT)
     scraper.scrape()
-    print(scraper.get_data_lists())
 
 if __name__ == "__main__":
     main()
