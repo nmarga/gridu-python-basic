@@ -32,46 +32,20 @@ Links:
     - lxml docs: https://lxml.de/
 """
 import os
-from typing import List, Union, Dict
-import requests
-from bs4 import BeautifulSoup
+from scraper.scraper import Scraper
 from dotenv import load_dotenv
 
-def scrape_website(url: str, headers_content: Dict) -> Union[List, None]:
-    try:
-        response = requests.get(url, timeout=3, headers=headers_content)
-        print(response.headers)
-        print(response)
-        html_content = response.text
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching the URL: {e}")
-        return None
-
-    soup = BeautifulSoup(html_content, 'html.parser')
-
-    data_list = []
-    data_list.append(soup.find('table'))
-
-    return data_list
+TOTAL_COUNT = 205
 
 
-if __name__ == "__main__":
-    # Load from .env file
+def main() -> None:
     load_dotenv()
 
-    USER_AGENT = os.getenv("USER_AGENT", "")
-    TARGET_URL = os.getenv("TARGET_URL", "")
+    scraper = Scraper(os.getenv("TARGET_URL", ""),
+                      os.getenv("USER_AGENT", ""),
+                      TOTAL_COUNT)
+    scraper.scrape()
+    print(scraper.get_data_lists())
 
-    headers = {
-        'User-Agent': USER_AGENT
-    }
-
-    scraped_data = scrape_website(TARGET_URL, headers)
-
-    if scraped_data:
-        print(f"Scraped {len(scraped_data)} data points from {TARGET_URL}\n")
-        # Print the first few results
-        for item in scraped_data[:10]:
-            print(f"Text: {scraped_data}")
-    else:
-        print("Scraping failed or no data found.")
+if __name__ == "__main__":
+    main()
