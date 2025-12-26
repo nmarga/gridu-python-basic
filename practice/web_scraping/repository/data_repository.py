@@ -12,7 +12,7 @@ class DataRepository:
 
     def insert_profile_data(self, profile_data: Dict) -> None:
         """Method to add rows the profile data."""
-        self._stock_data.update(profile_data)
+        self._profile_data.update(profile_data)
 
     def get_stocks(self) -> Dict:
         """Get all active stocks."""

@@ -33,16 +33,18 @@ Links:
 """
 import os
 from scraper.scraper import Scraper
+from scraper.request_sender import RequestSender
 from dotenv import load_dotenv
 
 
 def main() -> None:
     load_dotenv()
-
-    scraper = Scraper(os.getenv("TARGET_URL", ""),
+    request_sender = RequestSender(os.getenv("TARGET_URL", ""),
                       os.getenv("USER_AGENT", ""))
+    scraper = Scraper(request_sender)
     scraper.scrape()
     scraper.scrape_profiles()
-
+    scraper.scrape_stats()
+    print(scraper.get_data_lists())
 if __name__ == "__main__":
     main()
