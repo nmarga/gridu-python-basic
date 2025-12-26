@@ -40,11 +40,12 @@ from dotenv import load_dotenv
 def main() -> None:
     load_dotenv()
     request_sender = RequestSender(os.getenv("TARGET_URL", ""),
-                      os.getenv("USER_AGENT", ""))
+                                   os.getenv("USER_AGENT", ""))
     scraper = Scraper(request_sender)
     scraper.scrape()
     scraper.scrape_profiles()
     scraper.scrape_stats()
+    scraper.scrape_holders()
     print(scraper.get_data_lists())
 if __name__ == "__main__":
     main()

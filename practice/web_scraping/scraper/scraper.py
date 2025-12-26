@@ -36,11 +36,12 @@ class Scraper:
         """Function to scrape the statistics of an active stock."""
         parsed_data = {}
         for tag, _ in self._data_repository.get_stocks().items():
-            html_content = self._request_sender.send_impersonated_request(f'/quote/{tag}/stats')
+            url_path = f'/quote/{tag}/key-statistics'
+            html_content = self._request_sender.send_impersonated_request(url_path)
 
             parsed_data.update(Parser.parse_stats(html_content, tag))
 
-        self._data_repository.insert_profile_data(parsed_data)
+        self._data_repository.insert_stats_data(parsed_data)
 
     def scrape_holders(self) -> None:
         """Function to scrape the holders of an active stock."""
@@ -48,10 +49,12 @@ class Scraper:
         for tag, _ in self._data_repository.get_stocks().items():
             html_content = self._request_sender.send_impersonated_request(f'/quote/{tag}/holders')
 
-            parsed_data.update(Parser.parse_profile(html_content, tag))
+            parsed_data.update(Parser.parse_holders(html_content, tag))
 
-        self._data_repository.insert_profile_data(parsed_data)
+        self._data_repository.insert_holders_data(parsed_data)
 
     def get_data_lists(self) -> Dict:
         """Method that returns all the processed data."""
-        return {"data": self._data_repository.get_profiles()}
+        return {"yongest_ceo_data": self._data_repository.get_youngest_ceos(5),
+                "best_changes_data": self._data_repository.get_best_change(10),
+                "largest_holds_data": self._data_repository.get_largest_holds(10)}
