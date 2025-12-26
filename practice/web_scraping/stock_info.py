@@ -35,16 +35,14 @@ import os
 from scraper.scraper import Scraper
 from dotenv import load_dotenv
 
-TOTAL_COUNT = 10
-
 
 def main() -> None:
     load_dotenv()
 
     scraper = Scraper(os.getenv("TARGET_URL", ""),
-                      os.getenv("USER_AGENT", ""),
-                      TOTAL_COUNT)
+                      os.getenv("USER_AGENT", ""))
     scraper.scrape()
+    scraper.scrape_profiles()
 
 if __name__ == "__main__":
     main()
