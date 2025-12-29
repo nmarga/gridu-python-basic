@@ -18,7 +18,7 @@ class OperationNotFoundException(Exception):
 def math_calculate(function: str, *args) -> Any:
     """Executes custom operation from math module."""
 
-    expression = 'math.' + function + '(' + ', '.join([str(operand) for operand in args]) + ')'
+    expression = f'math.{function}({', '.join([str(operand) for operand in args])})'
     try:
         return eval(expression)
     except AttributeError as e:
