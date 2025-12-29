@@ -32,9 +32,10 @@ Links:
     - lxml docs: https://lxml.de/
 """
 import os
+from dotenv import load_dotenv
 from scraper.scraper import Scraper
 from scraper.request_sender import RequestSender
-from dotenv import load_dotenv
+from sheet.print_sheet import PrintSheet
 
 
 def main() -> None:
@@ -46,6 +47,18 @@ def main() -> None:
     scraper.scrape_profiles()
     scraper.scrape_stats()
     scraper.scrape_holders()
-    print(scraper.get_data_lists())
+    scraped_data = scraper.get_data_lists()
+    PrintSheet.print_table(scraped_data['yongest_ceo_data'],
+                           ["Name", "Code", "Country", "Employees", "CEO Name", "CEO Year Born"],
+                           ["country", "employees", "ceo_name", "ceo_year_born"],
+                           " 5 stocks with most youngest CEOs ")
+    PrintSheet.print_table(scraped_data['best_changes_data'],
+                           ["Name", "Code", "52-Week Change", "Total Cash"],
+                           ["week_change_52", "total_cash"],
+                           " 10 stocks with best 52-Week Change ")
+    PrintSheet.print_table(scraped_data['largest_holds_data'],
+                           ["Name", "Code", "Shares", "Date Reported", "% Out", "Value"],
+                           ["shares", "date_reported", "per_out", "value"],
+                           " 10 largest holds of Blackrock Inc. ")
 if __name__ == "__main__":
     main()

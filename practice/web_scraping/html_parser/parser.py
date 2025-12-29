@@ -84,7 +84,6 @@ class Parser:
             except ValueError:
                 profile_data[tag]['ceo_year_born'] = None
 
-        # print(profile_data)
         return profile_data
 
     @staticmethod
@@ -122,11 +121,10 @@ class Parser:
             if market_cap:
                 stats_data[tag]['total_cash'] = market_cap.text.strip()
 
-        # print(stats_data)
         return stats_data
 
     @staticmethod
-    def _convert_to_int(num_str: str) -> int:
+    def convert_to_int(num_str: str) -> int:
         """Helper method to convert to integer nubmers with M and B postfix."""
         powers = {'M': 10**6, 'B': 10**9}
         # Regex to find number part and optional suffix
@@ -158,12 +156,13 @@ class Parser:
         for holder in holders:
             if 'Blackrock' in holder.get_text():
                 try:
-                    holders_data[tag]['shares'] = Parser._convert_to_int(holder.find_all('td')[1].text.strip())
+                    holders_data[tag]['shares'] = Parser.convert_to_int(
+                        holder.find_all('td')[1].text.strip())
                 except ValueError:
                     holders_data[tag]['shares'] = None
                 holders_data[tag]['date_reported'] = holder.find_all('td')[2].text.strip()
                 holders_data[tag]['per_out'] = holder.find_all('td')[3].text.strip()
                 holders_data[tag]['value'] = holder.find_all('td')[4].text.strip()
                 break
-        print(holders_data)
+
         return holders_data

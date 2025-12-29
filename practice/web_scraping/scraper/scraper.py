@@ -25,7 +25,7 @@ class Scraper:
     def scrape_profiles(self) -> None:
         """Function to scrape the profile of an active stock."""
         parsed_data = {}
-        for tag, _ in self._data_repository.get_stocks().items():
+        for tag, _ in self._data_repository.stock_data.items():
             html_content = self._request_sender.send_impersonated_request(f'/quote/{tag}/profile')
 
             parsed_data.update(Parser.parse_profile(html_content, tag))
@@ -35,7 +35,7 @@ class Scraper:
     def scrape_stats(self) -> None:
         """Function to scrape the statistics of an active stock."""
         parsed_data = {}
-        for tag, _ in self._data_repository.get_stocks().items():
+        for tag, _ in self._data_repository.stock_data.items():
             url_path = f'/quote/{tag}/key-statistics'
             html_content = self._request_sender.send_impersonated_request(url_path)
 
@@ -46,7 +46,7 @@ class Scraper:
     def scrape_holders(self) -> None:
         """Function to scrape the holders of an active stock."""
         parsed_data = {}
-        for tag, _ in self._data_repository.get_stocks().items():
+        for tag, _ in self._data_repository.stock_data.items():
             html_content = self._request_sender.send_impersonated_request(f'/quote/{tag}/holders')
 
             parsed_data.update(Parser.parse_holders(html_content, tag))
