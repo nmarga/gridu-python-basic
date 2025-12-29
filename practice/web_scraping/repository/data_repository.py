@@ -1,5 +1,6 @@
 """Data repository definition."""
 from typing import Dict
+import copy
 
 class DataRepository:
     """Storage in memory of the scraped data."""
@@ -26,12 +27,12 @@ class DataRepository:
 
     def get_youngest_ceos(self, limit: int) -> Dict:
         """Get stocks with the youngest CEOs."""
-        joined_dict = dict(sorted(
+        joined_dict = copy.deepcopy(dict(sorted(
             self.profile_data.items(),
             key=lambda profile:(
                 profile[1]['ceo_year_born'] is not None,
                 profile[1]['ceo_year_born']),
-            reverse=True)[:limit])
+            reverse=True)[:limit]))
 
         # Join the name
         for key, _ in joined_dict.items():
@@ -40,12 +41,12 @@ class DataRepository:
 
     def get_best_change(self, limit: int) -> Dict:
         """Get stocks with the best 52 week change."""
-        joined_dict = dict(sorted(
+        joined_dict = copy.deepcopy(dict(sorted(
             self.stats_data.items(),
             key=lambda stat:(
                 stat[1]['week_change_52'] is not None,
                 stat[1]['week_change_52']),
-            reverse=True)[:limit])
+            reverse=True)[:limit]))
 
         # Join the name
         for key, _ in joined_dict.items():
@@ -54,12 +55,12 @@ class DataRepository:
 
     def get_largest_holds(self, limit: int) -> Dict:
         """Get stocks with the largest holds of Blackrock Inc."""
-        joined_dict = dict(sorted(
+        joined_dict = copy.deepcopy(dict(sorted(
             self.holders_data.items(),
             key=lambda hold:(
                 hold[1]['shares'] is not None,
                 hold[1]['shares']),
-            reverse=True)[:limit])
+            reverse=True)[:limit]))
 
         # Join the name
         for key, _ in joined_dict.items():

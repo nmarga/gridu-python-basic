@@ -80,3 +80,30 @@ def test_joins_data_repository(data_repository):
     assert data_repository.get_best_change(1) == {
         'NVDA': {'week_change_52': 38.58, 'total_cash': '4.63T', 'name': 'NVIDIA Corporation'}
     }
+
+def test_repository_data(data_repository):
+    """Tests the repository state after the joins."""
+    assert data_repository.stock_data == {
+        'NVDA': 'NVIDIA Corporation',
+        'TSLA': 'Tesla, Inc.'
+    }
+    assert data_repository.profile_data == {
+        'NVDA': {'country': 'United States',
+                'employees': 36000, 'ceo_name': 'Mr. Jen-Hsun  Huang',
+                'ceo_year_born': 1963},
+        'TSLA': {'country': 'United States',
+                'employees': 125665, 'ceo_name': 'Mr. Elon R. Musk',
+                'ceo_year_born': 1971}
+    }
+    assert data_repository.stats_data == {
+        'NVDA': {'week_change_52': 38.58, 'total_cash': '4.63T'}, 
+        'TSLA': {'week_change_52': 13.84, 'total_cash': '1.58T'}
+    }
+    assert data_repository.holders_data == {
+        'NVDA': 
+        {'shares': 1930000000, 'date_reported': 'Sep 30, 2025',
+         'per_out': '7.94%', 'value': '367,581,742,351'},
+        'TSLA': 
+        {'shares': 206740000, 'date_reported': 'Sep 30, 2025',
+         'per_out': '6.22%', 'value': '98,240,638,072'}
+    }
