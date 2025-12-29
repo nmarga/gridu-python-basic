@@ -51,3 +51,13 @@ def test_print_name_address_exception(monkeypatch):
     cmd_args = parse_args_helper()
     with pytest.raises(ValueError):
         print_name_address(cmd_args)
+
+def test_print_name_address_unkown_field_exception(monkeypatch):
+    """Test print_name_address function exception for unkown field"""
+
+    monkeypatch.setattr(sys, "argv",
+                        ["task3.py", "3", "--fake-number=unkown_field_type", "--some_string=word"])
+
+    cmd_args = parse_args_helper()
+    with pytest.raises(AttributeError):
+        print_name_address(cmd_args)

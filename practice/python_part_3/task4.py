@@ -23,10 +23,17 @@ def print_name_address(args: argparse.Namespace) -> None:
 
     args_dict = vars(args)
     output_list = []
-    output_num = int(args_dict.pop("NUMBER"))
+    try:
+        output_num = int(args_dict.pop("NUMBER"))
+    except ValueError as e:
+        raise ValueError("Invalid argument type") from e
 
     for _ in range(output_num):
-        output_list.append({key: factory_faker.format(value) for key, value in args_dict.items()})
+        try:
+            output_list.append(
+                {key: factory_faker.format(value) for key, value in args_dict.items()})
+        except AttributeError as e:
+            raise AttributeError("Unkown Faker attribute.") from e
 
     for output_row in output_list:
         print(output_row)
