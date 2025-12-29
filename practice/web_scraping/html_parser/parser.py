@@ -125,10 +125,13 @@ class Parser:
 
     @staticmethod
     def convert_to_int(num_str: str) -> int:
-        """Helper method to convert to integer nubmers with M and B postfix."""
-        powers = {'M': 10**6, 'B': 10**9}
+        """
+        Helper method to convert to integer nubmers with K, M and B postfix.
+        This helper method works only for positivive integers.
+        """
+        powers = {'K': 10**3, 'M': 10**6, 'B': 10**9}
         # Regex to find number part and optional suffix
-        match = re.search(r"([0-9\.]+)\s?([MB])", num_str, re.IGNORECASE)
+        match = re.search(r"([0-9\.]+)\s?([KMB])", num_str, re.IGNORECASE)
         if match:
             quantity = float(match.group(1))
             magnitude = match.group(2).upper()

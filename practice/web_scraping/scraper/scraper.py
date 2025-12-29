@@ -16,7 +16,7 @@ class Scraper:
 
     def scrape(self) -> None:
         """Function to scrape most active stocks."""
-        html_content = self._request_sender.send_request('/most-active')
+        html_content, _ = self._request_sender.send_request('/most-active')
 
         parsed_data = Parser.parse_stocks(html_content)
 
@@ -26,7 +26,8 @@ class Scraper:
         """Function to scrape the profile of an active stock."""
         parsed_data = {}
         for tag, _ in self._data_repository.stock_data.items():
-            html_content = self._request_sender.send_impersonated_request(f'/quote/{tag}/profile')
+            url_path = f'/quote/{tag}/profile'
+            html_content, _ = self._request_sender.send_impersonated_request(url_path)
 
             parsed_data.update(Parser.parse_profile(html_content, tag))
 
@@ -37,7 +38,7 @@ class Scraper:
         parsed_data = {}
         for tag, _ in self._data_repository.stock_data.items():
             url_path = f'/quote/{tag}/key-statistics'
-            html_content = self._request_sender.send_impersonated_request(url_path)
+            html_content, _ = self._request_sender.send_impersonated_request(url_path)
 
             parsed_data.update(Parser.parse_stats(html_content, tag))
 
@@ -47,7 +48,8 @@ class Scraper:
         """Function to scrape the holders of an active stock."""
         parsed_data = {}
         for tag, _ in self._data_repository.stock_data.items():
-            html_content = self._request_sender.send_impersonated_request(f'/quote/{tag}/holders')
+            url_path = f'/quote/{tag}/holders'
+            html_content, _ = self._request_sender.send_impersonated_request(url_path)
 
             parsed_data.update(Parser.parse_holders(html_content, tag))
 

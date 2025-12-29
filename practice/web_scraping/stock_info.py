@@ -47,6 +47,10 @@ def main() -> None:
     scraper.scrape_profiles()
     scraper.scrape_stats()
     scraper.scrape_holders()
+    print(scraper._data_repository.stock_data)
+    print(scraper._data_repository.profile_data)
+    print(scraper._data_repository.stats_data)
+    print(scraper._data_repository.holders_data)
     scraped_data = scraper.get_data_lists()
     PrintSheet.print_table(scraped_data['yongest_ceo_data'],
                            ["Name", "Code", "Country", "Employees", "CEO Name", "CEO Year Born"],
