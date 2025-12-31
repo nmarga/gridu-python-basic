@@ -3,7 +3,7 @@ import csv
 import sys
 from random import randint
 from typing import Tuple, List
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor # pylint: disable=no-name-in-module
 
 OUTPUT_DIR = './output'
 RESULT_FILE = './output/result.csv'
@@ -37,7 +37,7 @@ def read_fib_file(filename: str) -> Tuple:
 def func1(array: List) -> None:
     """Calculate the Fibonacci values and writes them to separate files."""
     # Use ProcessPoolExecutor for CPU-bound tasks
-    with ProcessPoolExecutor(max_workers=10) as executor:
+    with ProcessPoolExecutor() as executor:
         executor.map(save_fib_to_file, array)
 
 def func2(result_file: str) -> None:
