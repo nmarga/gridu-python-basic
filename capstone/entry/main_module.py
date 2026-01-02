@@ -10,7 +10,7 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S"
 )
 
-def main():
+def main() -> None:
     # Parse args
     cli = CLIHandler()
     args = cli.parse()

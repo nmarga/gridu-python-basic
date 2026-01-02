@@ -2,15 +2,16 @@ import uuid
 import random
 import time
 import re
+from typing import Any
 
 class DataGenerator:
     """DataGenerator class for converting the transformation of schema instructions into data."""
     @staticmethod
-    def get_timestamp(_):
+    def get_timestamp(_: Any) -> str:
         return str(time.time())
 
     @staticmethod
-    def get_str(instruction):
+    def get_str(instruction: str) -> str:
         if instruction == 'rand':
             return str(uuid.uuid4())
         if instruction.startswith('[') and instruction.endswith(']'):
@@ -19,7 +20,7 @@ class DataGenerator:
         return instruction
 
     @staticmethod
-    def get_int(instruction):
+    def get_int(instruction: str) -> int:
         if instruction == 'rand':
             return random.randint(0, 10000)
 
