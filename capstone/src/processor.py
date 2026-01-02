@@ -5,6 +5,7 @@ import json
 import uuid
 import random
 import argparse
+import sys
 from typing import List
 from src.schema import SchemaParser
 from src.data_generator import DataGenerator
@@ -25,7 +26,7 @@ class DataProcessor:
         """Process target: generates a set number of files."""
         for i in range(num_files):
             prefix = self._get_prefix(worker_id, i)
-            filename = f"{prefix}_{self.args.file_name}.json"
+            filename = f"{self.args.file_name}_{prefix}.json"
             filepath = os.path.join(self.args.path_to_save_files, filename)
 
             try:
@@ -47,6 +48,11 @@ class DataProcessor:
 
     def execute(self) -> None:
         """Starts the data generation process."""
+        if self.args.files_count < 0:
+            logging.error("Configuration Error: files_count cannot be less than 0. Got: %s",
+                        self.args.files_count)
+            sys.exit(1)
+
         if self.args.files_count == 0:
             for _ in range(self.args.data_lines):
                 print(json.dumps(self.parser.generate_line()))
