@@ -53,6 +53,11 @@ class DataProcessor:
                         self.args.files_count)
             sys.exit(1)
 
+        if self.args.multiprocessing < 0:
+            logging.error("Configuration Error: multiprocessing cannot be less than 0. Got: %s",
+                        self.args.multiprocessing)
+            sys.exit(1)
+
         if self.args.files_count == 0:
             for _ in range(self.args.data_lines):
                 print(json.dumps(self.parser.generate_line()))
