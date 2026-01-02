@@ -24,7 +24,8 @@ def main() -> None:
     if args.clear_path:
         logging.info("Cleaning target directory...")
         for f in os.listdir(args.path_to_save_files):
-            os.remove(os.path.join(args.path_to_save_files, f))
+            if f.startswith(args.file_name):
+                os.remove(os.path.join(args.path_to_save_files, f))
 
     # Execute workers
     processor = DataProcessor(args)
