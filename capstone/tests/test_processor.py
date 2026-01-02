@@ -29,7 +29,8 @@ def test_processor_console_mode(capsys):
         files_count=0,
         data_lines=2,
         data_schema='{"val": "int:10"}',
-        path_to_save_files="."
+        path_to_save_files=".",
+        multiprocessing=1
     )
 
     processor = DataProcessor(args)
