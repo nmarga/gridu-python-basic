@@ -61,7 +61,7 @@ def fixture_schema_file_path(tmp_path):
     return str(schema_file)
 
 def test_schema_from_file_fixture(schema_file_path):
-    parser = SchemaParser(schema_file_path, DataGenerator())
+    parser = SchemaParser(schema_file_path)
     assert parser.raw_schema["test_key"] == "int:100"
 
 def test_clear_path_action(tmp_path):

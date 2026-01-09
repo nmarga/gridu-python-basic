@@ -2,16 +2,15 @@ import json
 import os
 import logging
 import sys
-from typing import Any, Dict, Union
+from typing import Dict, Union
+from src.data_generator import DataGenerator
 
 class SchemaParser:
     """Parses the schema definitions in the args and generates data objects."""
 
-    engine: Any
     raw_schema: Dict[str, str]
 
-    def __init__(self, schema_input: str, generator_engine: Any) -> None:
-        self.engine = generator_engine
+    def __init__(self, schema_input: str) -> None:
         self.raw_schema = self._load_json(schema_input)
 
     def _load_json(self, source: str) -> Dict[str, str]:
@@ -41,11 +40,11 @@ class SchemaParser:
             if dtype == 'timestamp':
                 if instruction:
                     logging.warning("timestamp does not support values: %s", instruction)
-                line[key] = self.engine.get_timestamp(instruction)
+                line[key] = DataGenerator.get_timestamp(instruction)
             elif dtype == 'str':
-                line[key] = self.engine.get_str(instruction)
+                line[key] = DataGenerator.get_str(instruction)
             elif dtype == 'int':
-                line[key] = self.engine.get_int(instruction)
+                line[key] = DataGenerator.get_int(instruction)
             else:
                 logging.error("Unsupported type '%s' for key '%s'", dtype, key)
                 sys.exit(1)

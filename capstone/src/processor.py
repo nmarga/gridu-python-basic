@@ -8,19 +8,16 @@ import argparse
 import sys
 from typing import List
 from src.schema import SchemaParser
-from src.data_generator import DataGenerator
 
 class DataProcessor:
     """Responsible for spawning multiple processes, managing workers and jobs."""
 
     args: argparse.Namespace
-    generator: DataGenerator
     parser: SchemaParser
 
     def __init__(self, args: argparse.Namespace) -> None:
         self.args = args
-        self.generator = DataGenerator()
-        self.parser = SchemaParser(args.data_schema, self.generator)
+        self.parser = SchemaParser(args.data_schema)
 
     def _run_job(self, worker_id: int, num_files: int) -> None:
         """Process target: generates a set number of files."""
@@ -32,7 +29,7 @@ class DataProcessor:
             try:
                 with open(filepath, 'w', encoding='utf-8') as f:
                     for _ in range(self.args.data_lines):
-                        line_dict: dict = self.parser.generate_line()
+                        line_dict = self.parser.generate_line()
                         f.write(json.dumps(line_dict) + '\n')
             except OSError as e:
                 logging.error("Worker %s failed to write %s: %s", worker_id, filename, e)
