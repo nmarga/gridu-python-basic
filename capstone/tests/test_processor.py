@@ -3,7 +3,6 @@ import json
 from argparse import Namespace
 import pytest
 from src.processor import DataProcessor
-from src.data_generator import DataGenerator
 from src.schema import SchemaParser
 
 def test_processor_creates_files(tmp_path):
