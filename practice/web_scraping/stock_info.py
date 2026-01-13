@@ -32,16 +32,43 @@ Links:
     - lxml docs: https://lxml.de/
 """
 import os
+import argparse
+from typing import cast
 from dotenv import load_dotenv
 from scraper.scraper import Scraper
-from scraper.request_sender import RequestSender
+from scraper.request_sender import RequestSender, CachierMethod
 from sheet.print_sheet import PrintSheet
 
+def reset_all_caches(sender: RequestSender):
+    """Clears the cached methods"""
+    req_cached = cast(CachierMethod, sender.send_request)
+    imp_cached = cast(CachierMethod, sender.send_impersonated_request)
+
+    req_cached.clear_cache()
+    imp_cached.clear_cache()
+    print("Cleared all cache")
 
 def main() -> None:
+
+    # Parse the args
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--clear-cache', 
+        action='store_true'
+    )
+    args = parser.parse_args()
+
     load_dotenv()
-    request_sender = RequestSender(os.getenv("TARGET_URL", ""),
-                                   os.getenv("USER_AGENT", ""))
+    target_url = os.getenv("TARGET_URL")
+    user_agent = os.getenv("USER_AGENT")
+    if target_url is None or user_agent is None:
+        raise ValueError("Environment variables have not been defined yet")
+
+    request_sender = RequestSender(target_url,
+                                   user_agent)
+    if args.clear_cache:
+        reset_all_caches(request_sender)
+
     scraper = Scraper(request_sender)
     scraper.scrape()
     scraper.scrape_profiles()

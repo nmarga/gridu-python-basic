@@ -1,8 +1,8 @@
 import pytest
 from repository.data_repository import DataRepository
 
-@pytest.fixture
-def data_repository():
+@pytest.fixture(name="data_repository")
+def fixture_data_repository():
     """Fixture for DataRepository object."""
     data_rep = DataRepository()
     yield data_rep

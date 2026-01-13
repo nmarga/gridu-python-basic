@@ -1,9 +1,13 @@
 """RequestSender class definition with cached methods."""
-from typing import Dict
+from typing import Dict, Protocol, Any
 from datetime import timedelta
 import requests
 import curl_cffi
 from cachier import cachier
+
+class CachierMethod(Protocol):
+    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
+    def clear_cache(self) -> None: ...
 
 class RequestSender:
     """RequestSender class, it sends requests to url paths from a base url specification."""

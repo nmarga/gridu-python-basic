@@ -3,8 +3,8 @@ from dotenv import load_dotenv
 import pytest
 from scraper.request_sender import RequestSender
 
-@pytest.fixture
-def request_sender_connection():
+@pytest.fixture(name="request_sender_connection")
+def fixture_request_sender_connection():
     """Fixture for the RequestSender object."""
     load_dotenv()
     yield RequestSender(os.getenv("TARGET_URL", ""),
