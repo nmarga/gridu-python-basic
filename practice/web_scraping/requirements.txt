@@ -1,0 +1,8 @@
+beautifulsoup4==4.14.3
+requests==2.32.5
+dotenv==0.9.9
+prettytable==3.17.0
+curl_cffi==0.14.0
+cachier==4.1.0
+lxml==6.0.2
+pytest==9.0.2

@@ -1,0 +1,91 @@
+"""
+There is a list of most active Stocks on Yahoo Finance https://finance.yahoo.com/most-active.
+You need to compose several sheets based on data about companies from this list.
+To fetch data from webpage you can use requests lib. To parse html you can use beautiful soup lib or lxml.
+Sheets which are needed:
+1. 5 stocks with most youngest CEOs and print sheet to output. You can find CEO info in Profile tab of concrete stock.
+    Sheet's fields: Name, Code, Country, Employees, CEO Name, CEO Year Born.
+2. 10 stocks with best 52-Week Change. 52-Week Change placed on Statistics tab.
+    Sheet's fields: Name, Code, 52-Week Change, Total Cash
+3. 10 largest holds of Blackrock Inc. You can find related info on the Holders tab.
+    Blackrock Inc is an investment management corporation.
+    Sheet's fields: Name, Code, Shares, Date Reported, % Out, Value.
+    All fields except first two should be taken from Holders tab.
+
+
+Example for the first sheet (you need to use same sheet format):
+==================================== 5 stocks with most youngest CEOs ===================================
+| Name        | Code | Country       | Employees | CEO Name                             | CEO Year Born |
+---------------------------------------------------------------------------------------------------------
+| Pfizer Inc. | PFE  | United States | 78500     | Dr. Albert Bourla D.V.M., DVM, Ph.D. | 1962          |
+...
+
+About sheet format:
+- sheet title should be aligned to center
+- all columns should be aligned to the left
+- empty line after sheet
+
+Write at least 2 tests on your choose.
+Links:
+    - requests docs: https://docs.python-requests.org/en/latest/
+    - beautiful soup docs: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+    - lxml docs: https://lxml.de/
+"""
+import os
+import argparse
+from typing import cast
+from dotenv import load_dotenv
+from scraper.scraper import Scraper
+from scraper.request_sender import RequestSender, CachierMethod
+from sheet.print_sheet import PrintSheet
+
+def reset_all_caches(sender: RequestSender):
+    """Clears the cached methods"""
+    req_cached = cast(CachierMethod, sender.send_request)
+    imp_cached = cast(CachierMethod, sender.send_impersonated_request)
+
+    req_cached.clear_cache()
+    imp_cached.clear_cache()
+    print("Cleared all cache")
+
+def main() -> None:
+
+    # Parse the args
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--clear-cache', 
+        action='store_true'
+    )
+    args = parser.parse_args()
+
+    load_dotenv()
+    target_url = os.getenv("TARGET_URL")
+    user_agent = os.getenv("USER_AGENT")
+    if target_url is None or user_agent is None:
+        raise ValueError("Environment variables have not been defined yet")
+
+    request_sender = RequestSender(target_url,
+                                   user_agent)
+    if args.clear_cache:
+        reset_all_caches(request_sender)
+
+    scraper = Scraper(request_sender)
+    scraper.scrape()
+    scraper.scrape_profiles()
+    scraper.scrape_stats()
+    scraper.scrape_holders()
+    scraped_data = scraper.get_data_lists()
+    PrintSheet.print_table(scraped_data['yongest_ceo_data'],
+                           ["Name", "Code", "Country", "Employees", "CEO Name", "CEO Year Born"],
+                           ["country", "employees", "ceo_name", "ceo_year_born"],
+                           " 5 stocks with most youngest CEOs ")
+    PrintSheet.print_table(scraped_data['best_changes_data'],
+                           ["Name", "Code", "52-Week Change", "Total Cash"],
+                           ["week_change_52", "total_cash"],
+                           " 10 stocks with best 52-Week Change ")
+    PrintSheet.print_table(scraped_data['largest_holds_data'],
+                           ["Name", "Code", "Shares", "Date Reported", "% Out", "Value"],
+                           ["shares", "date_reported", "per_out", "value"],
+                           " 10 largest holds of Blackrock Inc. ")
+if __name__ == "__main__":
+    main()
