@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "magicgenerator"
+version = "0.1.0"
+description = "A universal console utility for generating JSON test data."
+
+[project.scripts]
+magicgenerator = "entry.main_module:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"*" = ["*.ini"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["*"]
